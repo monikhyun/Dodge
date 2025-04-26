@@ -3,6 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using System.Collections; // 추가
 
 public class StageClearTimer : MonoBehaviour
 {
@@ -16,10 +17,15 @@ public class StageClearTimer : MonoBehaviour
 
     public bool isPlayerDead = false;
     private bool stageCleared = false;
+    
+    public PlayerController player;
 
     public String nextSceneName = "StageClear";
     
     public FadeManager fadeManager;
+    
+    private bool isTimerPaused = false;
+    
     void Start()
     {
         currentTime = 0f;
@@ -31,7 +37,7 @@ public class StageClearTimer : MonoBehaviour
 
     void Update()
     {
-        if (stageCleared || isPlayerDead) return;
+        if (stageCleared || isPlayerDead || isTimerPaused) return;
 
         currentTime += Time.deltaTime;
 
@@ -44,24 +50,39 @@ public class StageClearTimer : MonoBehaviour
         if (percent >= 1f)
         {
             stageCleared = true;
-
-            if (clearUI != null)
-                clearUI.SetActive(true);
-            if (clearSound != null)
-                AudioSource.PlayClipAtPoint(clearSound, Camera.main.transform.position);
-            PlayerPrefs.SetString("PreviousStage", SceneManager.GetActiveScene().name);
-            PlayerPrefs.Save();
-            
-            
-            if (FadeManager.Instance != null)
-                FadeManager.Instance.StartFadeOutAndLoad(nextSceneName);
-            else
-            {
-                Debug.LogWarning("FadeManager.Instance is null. Fallback to SceneManager.LoadScene");
-                SceneManager.LoadScene(nextSceneName);
-            }
-// 혹시 모를 예외 처리
+            if (player != null)
+                player.SetInvincibleTrue();
+            StartCoroutine(StageClearSequence()); // 코루틴 시작
         }
+    }
 
+    private IEnumerator StageClearSequence()
+    {
+        if (clearUI != null)
+            clearUI.SetActive(true);
+        if (clearSound != null)
+            AudioSource.PlayClipAtPoint(clearSound, Camera.main.transform.position);
+
+        PlayerPrefs.SetString("PreviousStage", SceneManager.GetActiveScene().name);
+        PlayerPrefs.Save();
+
+        yield return new WaitForSeconds(2f); // 2초 대기
+
+        if (FadeManager.Instance != null)
+            FadeManager.Instance.StartFadeOutAndLoad(nextSceneName);
+        else
+        {
+            SceneManager.LoadScene(nextSceneName);
+        }
+    }
+    
+    public void PauseTimer()
+    {
+        isTimerPaused = true;
+    }
+
+    public void ResumeTimer()
+    {
+        isTimerPaused = false;
     }
 }

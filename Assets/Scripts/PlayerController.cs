@@ -115,10 +115,6 @@ public class PlayerController : MonoBehaviour
         {
             gameObject.SetActive(true);
         }
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            SceneManager.LoadScene("StageSelect");
-        }
     }
     private IEnumerator SlideRoutine()
     {
@@ -144,9 +140,24 @@ public class PlayerController : MonoBehaviour
         {
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(inputDir), 0.2f);
         }
+// Raycast로 벽 감지
+        Ray ray = new Ray(transform.position, inputDir);
+        float rayDistance = 0.5f; // 캐릭터 크기에 따라 조정
+        LayerMask wallMask = LayerMask.GetMask("Wall"); // "Wall" 레이어 감지만
 
-        Vector3 moveDelta = inputDir * speed * Time.fixedDeltaTime;
-        playerRigidbody.MovePosition(playerRigidbody.position + moveDelta);
+        if (!Physics.Raycast(ray, rayDistance, wallMask))
+        {
+            // 벽이 없으면 이동
+            Vector3 moveDelta = inputDir * speed * Time.fixedDeltaTime;
+            playerRigidbody.MovePosition(playerRigidbody.position + moveDelta);
+        }
+        else
+        {
+            // 벽이 앞에 있으면 이동 안 함
+            playerRigidbody.linearVelocity = Vector3.zero;
+        }
+
+        
     }
     void OnCollisionEnter(Collision collision)
     {
@@ -299,5 +310,8 @@ public class PlayerController : MonoBehaviour
         }
         SpeedUI.SetActive(false);
     }
-    
+    public void SetInvincibleTrue()
+    {
+        isInvincible = true;
+    }
 }

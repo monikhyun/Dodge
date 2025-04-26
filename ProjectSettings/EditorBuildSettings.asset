@@ -12,16 +12,46 @@ EditorBuildSettings:
     path: Assets/Scenes/StageSelect.unity
     guid: a24f6ddd77ddb429892b30b22a5ea175
   - enabled: 1
+    path: Assets/Scenes/Guide.unity
+    guid: eeab5b51ec199441aaa08982a870ada0
+  - enabled: 1
     path: Assets/Scenes/Stage1.unity
-    guid: 018d3f2c12c5242c2b89344f9d9ce535
+    guid: ed5947f50037545b9b120aaf5c1c9ceb
   - enabled: 1
     path: Assets/Scenes/Stage2.unity
-    guid: 2ad4007074d294ff7af0f50bdc936a60
+    guid: 3bd725b93708e4c05a0ef720e8d6aa6f
   - enabled: 1
     path: Assets/Scenes/Stage3.unity
-    guid: 408930db2a4124a258736f13f2e2c0f7
+    guid: 44dbfe37e53fc49f8b733c505bef40d4
   - enabled: 1
     path: Assets/Scenes/Stage4.unity
+    guid: d857fee92fd264799ae231806d49dbc3
+  - enabled: 1
+    path: Assets/Scenes/Stage5.unity
+    guid: 8aeccac6e6e6e42fc8e6fa2801c9bb36
+  - enabled: 1
+    path: Assets/Scenes/Stage5Game.unity
+    guid: 6f1d9034d571846de9b0982ef8c5aaad
+  - enabled: 1
+    path: Assets/Scenes/Stage6.unity
+    guid: 82de91a1a089f4210ac76769a6ee1d5e
+  - enabled: 1
+    path: Assets/Scenes/Stage6Game.unity
+    guid: 214bc07a12e214c2788dfe10c068144d
+  - enabled: 1
+    path: Assets/Scenes/EndingScene.unity
+    guid: 2c40e221f3e484d8f962a156d589d700
+  - enabled: 0
+    path: Assets/Scenes/stage 1 ex.unity
+    guid: 018d3f2c12c5242c2b89344f9d9ce535
+  - enabled: 0
+    path: Assets/Scenes/stage2 ex.unity
+    guid: 2ad4007074d294ff7af0f50bdc936a60
+  - enabled: 0
+    path: Assets/Scenes/stage 3 ex.unity
+    guid: 408930db2a4124a258736f13f2e2c0f7
+  - enabled: 0
+    path: Assets/Scenes/Stage4 ex.unity
     guid: 753764534302d4797a27f96bebf14726
   - enabled: 1
     path: Assets/Scenes/StageClear.unity

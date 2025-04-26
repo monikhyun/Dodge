@@ -15,7 +15,23 @@ public class BulletSpawner : MonoBehaviour
 
     void Start()
     {
-        target = FindFirstObjectByType<PlayerController>().transform;
+        PlayerAutoMove autoMove = FindFirstObjectByType<PlayerAutoMove>();
+        if (autoMove != null)
+        {
+            target = autoMove.transform;
+        }
+        else
+        {
+            PlayerController controller = FindFirstObjectByType<PlayerController>();
+            if (controller != null)
+            {
+                target = controller.transform;
+            }
+            else
+            {
+                Debug.LogError("PlayerAutoMove나 PlayerController가 씬에 없습니다!");
+            }
+        }
     }
 
     void Update()

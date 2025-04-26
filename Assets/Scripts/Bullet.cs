@@ -29,7 +29,7 @@ public class Bullet : MonoBehaviour
             if (hit.CompareTag("Player"))
             {
                 PlayerController player = hit.GetComponent<PlayerController>();
-                if (player != null)
+                if (player != null && player.gameObject.activeInHierarchy)
                 {
                     player.TakeDamage();
                 }

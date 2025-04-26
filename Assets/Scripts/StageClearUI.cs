@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Text.RegularExpressions;
 using TMPro;
 
 public class StageClearUI : MonoBehaviour
@@ -17,11 +18,12 @@ public class StageClearUI : MonoBehaviour
     {
         if (currentStage.StartsWith("Stage"))
         {
-            string numberStr = currentStage.Substring(5); // "Stage1" → "1"
-            if (int.TryParse(numberStr, out int stageNum))
+            // 숫자만 뽑기 (Stage5Game → 5)
+            Match match = Regex.Match(currentStage.Substring(5), @"^\d+"); 
+            if (match.Success && int.TryParse(match.Value, out int stageNum))
             {
-                if (stageNum == 4)
-                    return "Ending";
+                if (stageNum == 6)
+                    return "EndingScene";
 
                 int nextStageNum = stageNum + 1;
                 return "Stage" + nextStageNum;
